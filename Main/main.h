@@ -14,9 +14,13 @@ Version		:1.0.0
 #include "task.h"
 #include "systick.h"
 
+#include "taskLed.h"
+#include "taskKey.h"
+
 #ifdef __cplusplus
 extern C{
 #endif
+
 
 
 #ifdef __cplusplus

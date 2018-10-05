@@ -7,34 +7,67 @@ Version		:1.0.0
 #include "main.h"
 #include "gd32f3x0.h"
 
+/*
 GPIO ledsGpio[] = {{GPIOF,GPIO_PIN_6},{GPIOF,GPIO_PIN_7},};
 
 Led leds = {0,2,ledsGpio,LedOff};
+static unsigned char counter = 0 ;
 
-static unsigned char couter = 0 ;
-static void ledTask(void* para)
+
+static TaskHandle_t testQueueHandle ;
+static void testQueueTask(void* para)
 {
     para = para ;
+    unsigned char counter = 0 ;
+    LedModule writeModule ;
     while(1)
     {
-        if(couter)
+        switch(counter)
         {
-            ledSet(&leds, LedOn);
-            couter = 0 ;
-        }else{
-            ledSet(&leds, LedOff);
-            couter = 1 ;
+            case 0:
+            {
+                writeModule.index = 0 ;
+                writeModule.mode = 1 ;
+                counter ++ ;
+                break ;
+            }
+            case 1:
+            {
+                writeModule.index = 0 ;
+                writeModule.mode = 0 ;
+                counter ++ ;
+                break ;
+            }
+            case 2:
+            {
+                writeModule.index = 1 ;
+                writeModule.mode = 1 ;
+                counter ++ ;
+                break ;
+            }
+            case 3:
+            {
+                writeModule.index = 1 ;
+                writeModule.mode = 0 ;
+                counter = 0 ;
+                break ;
+            }
         }
+        taskLedSet(writeModule);
         vTaskDelay(1000);
     }
 }
+*/
 
 int main(void)
 {
     SystemInit();
     systick_config();
     bspInit();
-    xTaskCreate(ledTask, "", 10, NULL, 4, NULL);
+    
+    taskLedInit();
+    taskKeyInit();
+    //xTaskCreate(testQueueTask,"",50,(void*)0,2,&testQueueHandle);
     vTaskStartScheduler();
     while(1)
     {

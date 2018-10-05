@@ -7,6 +7,7 @@ Version		:1.0.0
 #ifndef _TYPEDEF_H_
 #define _TYPEDEF_H_
 
+/*
 #ifndef u8
 #define u8 unsigned char
 #endif
@@ -19,7 +20,7 @@ Version		:1.0.0
 #define u32 unsigned int
 #endif
 
-
+*/
 
 #ifdef __cplusplus
 extern C{
